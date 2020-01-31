@@ -2,11 +2,13 @@
 // Initial state for blogs
 const initialState = []
 
-const blogReducer  = ((state =  initialState, action) => {
+const blogReducer  = ((blogsState =  initialState, action) => {
   switch (action.type) {
     
     case "PUBLISH":
-      return []
+      return [
+        ...blogsState,
+      ]
     
     case "DRAFT":
       return []
