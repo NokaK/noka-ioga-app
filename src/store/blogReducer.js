@@ -7,7 +7,11 @@ const blogReducer  = ((blogsState =  initialState, action) => {
     
     case "PUBLISH":
       return [
-        ...blogsState,
+        ...blogsState,       
+        {
+          title: action.title,
+          // desc: action.desc
+        }
       ]
     
     case "DRAFT":

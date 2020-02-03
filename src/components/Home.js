@@ -13,36 +13,40 @@ class Home extends Component{
   }
   handleChange(event) {
     this.setState({[event.target.name]:event.target.value});
-      console.log( event.target.value);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit() {
+    const  { title , desc } = this.state
+    this.props.dispatch ({
+      type: "PUBLISH",
+      blog_title: title,
+      dlog_tesc: desc
+    })
+  
   }
-
 
   render (){
     return (
       <div>
         <h3 className="title">Add blog</h3>
-        <form className="blog-form"  onSubmit={this.handleSubmit}   >
+        <form className="blog-form"  onSubmit={() => this.handleSubmit({ title: this.state.title, desc: this.state.desc })}>
           <div className="flex-column">
-            <label htmlFor="title">Title</label>
-            <input className="blog-title" type="text" id="title" name="title" value={this.state.title}   onChange={this.handleChange}/>
+            <label >Title</label>
+            <input className="blog-title" type="text"  name="title" value={this.state.title}   onChange={this.handleChange}/>
           </div>
           <div className="flex-column">
-            <label htmlFor="desc">Description</label>
-            <textarea className="blog-desc" id="desc"  name="desc" value={this.state.desc} onChange={this.handleChange} ></textarea>
+            <label >Description</label>
+            <textarea className="blog-desc"  name="desc" value={this.state.desc} onChange={this.handleChange} ></textarea>
           </div>
-          <button type="submit" value="Submit">add</button>
+          <button  value="Submit" >add</button>
         </form>
       </div>
     )
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    
+   
   }
 }
 
