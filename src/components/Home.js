@@ -12,8 +12,8 @@ class Home extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
-    this.setState({title: event.target.value});
-      console.log( this.state.title);
+    this.setState({[event.target.name]:event.target.value});
+      console.log( event.target.value);
   }
 
   handleSubmit(event) {
@@ -28,11 +28,11 @@ class Home extends Component{
         <form className="blog-form"  onSubmit={this.handleSubmit}   >
           <div className="flex-column">
             <label htmlFor="title">Title</label>
-            <input className="blog-title" type="text" id="title" value={this.state.title}   onChange={this.handleChange}/>
+            <input className="blog-title" type="text" id="title" name="title" value={this.state.title}   onChange={this.handleChange}/>
           </div>
           <div className="flex-column">
             <label htmlFor="desc">Description</label>
-            <textarea className="blog-desc" id="desc"   ></textarea>
+            <textarea className="blog-desc" id="desc"  name="desc" value={this.state.desc} onChange={this.handleChange} ></textarea>
           </div>
           <button type="submit" value="Submit">add</button>
         </form>
