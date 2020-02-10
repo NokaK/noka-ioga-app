@@ -52,3 +52,11 @@ li a {
   border: none;
   margin: 10px 0 0;
 }
+.blog-card {
+  border: 1px solid grey;
+  padding: 15px;
+}
+.success-text{
+  text-align: center;
+  display: none;
+}

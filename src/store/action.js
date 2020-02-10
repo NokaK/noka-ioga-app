@@ -1,5 +1,6 @@
 
-export const publish = (title) => ({
+export const publish = (title,desc) => ({
   type: 'PUBLISH',
-  title
+  title,
+  desc
 })

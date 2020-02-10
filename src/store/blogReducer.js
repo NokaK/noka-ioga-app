@@ -10,7 +10,7 @@ const blogReducer  = ((blogsState =  initialState, action) => {
         ...blogsState,       
         {
           title: action.title,
-          // desc: action.desc
+          desc: action.desc
         }
       ]
     

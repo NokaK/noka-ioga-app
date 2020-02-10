@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar  from './components/Navbar';
 import Home from './components/Home';
 import Blog from './components/Blog'
+import BlogDetails from './components/BlogDetails'
 
 
 
@@ -21,8 +22,8 @@ class App extends React.Component {
           <Route path="/Blog">
             <Blog/>
           </Route>
-          <Route path="/blogDetails">
-          blogDetails
+          <Route path="/blogDetails/:id">
+             <BlogDetails/>
           </Route>  
         </Switch>
       </Router>  

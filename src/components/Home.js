@@ -15,21 +15,28 @@ class Home extends Component{
     this.setState({[event.target.name]:event.target.value});
   }
 
-  handleSubmit() {
+  handleSubmit({event}) {
+    event.preventDefault();
     const  { title , desc } = this.state
     this.props.dispatch ({
       type: "PUBLISH",
-      blog_title: title,
-      dlog_tesc: desc
+      title: title,
+      desc: desc
     })
-  
+    this.setState({
+      title: '',
+      desc:''
+    });
   }
+  // handleAdded() {
+  //   alert('already added')
+  // }
 
   render (){
     return (
       <div>
         <h3 className="title">Add blog</h3>
-        <form className="blog-form"  onSubmit={() => this.handleSubmit({ title: this.state.title, desc: this.state.desc })}>
+        <form className="blog-form"  onSubmit={(e) => this.handleSubmit({ title: this.state.title, desc: this.state.desc,event: e })}>
           <div className="flex-column">
             <label >Title</label>
             <input className="blog-title" type="text"  name="title" value={this.state.title}   onChange={this.handleChange}/>
@@ -38,7 +45,7 @@ class Home extends Component{
             <label >Description</label>
             <textarea className="blog-desc"  name="desc" value={this.state.desc} onChange={this.handleChange} ></textarea>
           </div>
-          <button  value="Submit" >add</button>
+          <button  value="Submit" onClick={this.handleAdded}>add</button>
         </form>
       </div>
     )
