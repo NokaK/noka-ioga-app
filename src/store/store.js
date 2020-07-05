@@ -1,8 +1,7 @@
-import  { createStore, combineReducers} from 'redux';
-import  blogReducer from './blogReducer'
-
+import { createStore, combineReducers } from 'redux';
+import blogReducer from './blogReducer';
 
 // Blog reducer
-const store = createStore(combineReducers({ blog: blogReducer}));
+const store = createStore(combineReducers({ posts: blogReducer }));
 
-export default  store;
+export default store;

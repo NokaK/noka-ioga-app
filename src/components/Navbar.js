@@ -1,22 +1,21 @@
-import React  from 'react';
-import { NavLink } from "react-router-dom";
-import "../App.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const Navbar = () => {
-    return (
-        <nav>
-            <ul>
-                <li>
-                    <NavLink to="/">Home</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/blog">blog</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/blogDetails">blogdetails</NavLink>
-                </li>
-            </ul>
-         </nav>
-    )
-}
-export default Navbar
+const Navbar = () => (
+  <nav>
+    <ul style={{ display: 'flex' }}>
+      <li>
+        <NavLink className="nav-item" exact to="/">
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="nav-item" to="/blog">
+          Blog
+        </NavLink>
+      </li>
+    </ul>
+  </nav>
+);
+
+export default Navbar;
