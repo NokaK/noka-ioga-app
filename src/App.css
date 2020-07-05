@@ -119,7 +119,7 @@ nav {
   text-transform: capitalize;
   color: #fff;
   border: none;
-  transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .blog-form__btn:hover {
