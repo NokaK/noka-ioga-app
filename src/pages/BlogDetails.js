@@ -1,32 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
-class BlogDetails extends React.Component {
-  state = { currentPost: [] };
+const BlogDetails = props => {
+  const [currentPost, setCurrentPost] = useState([]);
+  const { id } = useParams();
 
-  componentDidMount() {
-    const id = this.props.match.params.id;
+  useEffect(() => {
+    const selectedPost = props.posts.find(post => post.id === Number(id));
 
-    const selectedPost = this.props.posts.find(post => post.id === Number(id));
-    this.setState({ currentPost: selectedPost });
-  }
+    setCurrentPost(selectedPost);
+  }, [props.posts, id]);
 
-  render() {
-    const post = this.state.currentPost;
+  return (
+    <div className="container">
+      <p>
+        <Link to="/blog">Blog</Link> / <span>{currentPost.title}</span>
+      </p>
 
-    return (
-      <div className="container">
-        <p>
-          <Link to="/">Home</Link> / <Link to="/blog">Blog</Link> /{' '}
-          <span>{post.title}</span>
-        </p>
-
-        <BlogPost title={post.title} text={post.desc} />
-      </div>
-    );
-  }
-}
+      <BlogPost title={currentPost.title} text={currentPost.description} />
+    </div>
+  );
+};
 
 const BlogPost = ({ title, text }) => (
   <div className="blog-card">
@@ -35,10 +30,6 @@ const BlogPost = ({ title, text }) => (
   </div>
 );
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts
-  };
-};
+const mapStateToProps = ({ posts }) => ({ posts });
 
-export default withRouter(connect(mapStateToProps)(BlogDetails));
+export default connect(mapStateToProps)(BlogDetails);

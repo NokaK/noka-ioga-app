@@ -2,7 +2,7 @@
 const initialState = [
   {
     title: 'new post i wrote',
-    desc: 'blog post about state of web',
+    description: 'blog post about state of web',
     id: 37
   }
 ];
@@ -14,7 +14,7 @@ const blogReducer = (blogsState = initialState, action) => {
         ...blogsState,
         {
           title: action.title,
-          desc: action.desc,
+          description: action.description,
           id: action.id
         }
       ];

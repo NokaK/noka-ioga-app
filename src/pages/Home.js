@@ -1,72 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import InputWithLabel from '../components/InputWithLabel';
+import { publish } from '../store/actions';
 
-class Home extends React.Component {
-  state = { title: '', desc: '' };
+const initialState = { title: '', description: '' };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+const Home = props => {
+  const [inputData, setInputData] = useState(initialState);
+  const { description, title } = inputData;
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setInputData(state => ({
+      ...state,
+      [name]: value
+    }));
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    const { title, desc } = this.state;
-    if (!title.length || !desc.length) return;
+    if (!title.length || !description.length) return;
 
-    this.props.dispatch({
-      type: 'PUBLISH',
-      title: title,
-      desc: desc,
+    props.publish({
+      title,
+      description,
       id: Date.now()
     });
-    this.setState({ title: '', desc: '' });
+
+    setInputData(initialState);
   };
 
-  render() {
-    return (
-      <div className="container">
-        <h2 className="title">
-          Create post{' '}
-          <span style={{ fontWeight: 'normal' }}>
-            #{this.props.posts.length + 1}
-          </span>
-        </h2>
+  return (
+    <div className="container">
+      <h2 className="title">
+        Create post{' '}
+        <span style={{ fontWeight: 'normal' }}>#{props.posts.length + 1}</span>
+      </h2>
 
-        <form className="blog-form" onSubmit={this.handleSubmit}>
-          <div className="flex-column">
-            <label htmlFor="title" className="blog-form__label">
-              Title:
-            </label>
-            <input
-              className="blog-form__title"
-              name="title"
-              id="title"
-              value={this.state.title}
-              onChange={this.handleChange}
-            />
-          </div>
+      <form className="blog-form" onSubmit={handleSubmit}>
+        <InputWithLabel label="title" value={title} onChange={handleChange} />
 
-          <div className="flex-column">
-            <label htmlFor="desc" className="blog-form__label">
-              Description:
-            </label>
-            <textarea
-              className="blog-form__description"
-              name="desc"
-              id="desc"
-              value={this.state.desc}
-              onChange={this.handleChange}
-            />
-          </div>
-          <button className="blog-form__btn">add</button>
-        </form>
-      </div>
-    );
-  }
-}
-const mapStateToProps = state => {
-  return { posts: state.posts };
+        <InputWithLabel
+          type="textarea"
+          label="description"
+          value={description}
+          onChange={handleChange}
+        />
+        <button className="blog-form__btn">publish</button>
+      </form>
+    </div>
+  );
 };
 
-export default withRouter(connect(mapStateToProps)(Home));
+const mapStateToProps = state => ({ posts: state.posts });
+
+const mapDispatchToProps = dispatch => ({
+  publish: args => dispatch(publish(args))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

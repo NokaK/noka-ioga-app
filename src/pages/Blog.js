@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TextTruncate from 'react-text-truncate';
 
 const Blog = ({ posts }) => {
   return (
     <div className="container">
-      <p>
-        <Link to="/">Home</Link> / <span>Blog</span>
-      </p>
-
       {posts.length > 0 ? (
         posts.map(blog => (
           <div className="blog-card" key={blog.id}>
@@ -17,7 +13,7 @@ const Blog = ({ posts }) => {
             <TextTruncate
               line={1}
               element="span"
-              text={blog.desc}
+              text={blog.description}
               textTruncateChild={<Link to={`/blog/${blog.id}`}>read more</Link>}
             />
           </div>
@@ -29,10 +25,6 @@ const Blog = ({ posts }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts,
-  };
-};
+const mapStateToProps = ({ posts }) => ({ posts });
 
-export default withRouter(connect(mapStateToProps)(Blog));
+export default connect(mapStateToProps)(Blog);
