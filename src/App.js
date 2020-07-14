@@ -1,35 +1,27 @@
 import React from 'react';
-import { Provider } from 'react-redux'
-import store  from  './store/store'
-import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar  from './components/Navbar';
-import Home from './components/Home';
-import Blog from './components/Blog'
-import BlogDetails from './components/BlogDetails'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import Home from './pages/Home';
+import Blog from './pages/Blog';
+import BlogPostDetails from './pages/BlogDetails';
+import NavBar from './components/Navbar';
 
+const App = () => (
+  <Router>
+    <NavBar />
 
-class App extends React.Component {
-  render (){
-    return (
-    <Provider store={store}>
-      <Router>
-      <Navbar/>
-        <Switch>
-          <Route exact path="/">
-            <Home/>
-          </Route>
-          <Route path="/Blog">
-            <Blog/>
-          </Route>
-          <Route path="/blogDetails/:id">
-             <BlogDetails/>
-          </Route>  
-        </Switch>
-      </Router>  
-    </Provider>
-    )
-  }
- }
+    <Switch>
+      <Route path="/blog/:id">
+        <BlogPostDetails />
+      </Route>
+      <Route path="/blog">
+        <Blog />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
